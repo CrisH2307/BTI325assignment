@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lego Collection</title>
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <style>
+    .card {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transition: 0.5s ease;
+      box-shadow: 0 0 12px cyan;
+    }
+
+    .card::after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      border-radius: 22px;
+    }
+
+    .card:hover::before,
+    .card:active::before {
+      transform: scaleX(1);
+    }
+  </style>
+  <body>
+    <div class="navbar bg-base-200">
+      <div class="flex flex-auto">
+        <a class="btn btn-ghost normal-case text-xl  hover:bg-cyan-300" href="/">Lego Collection</a>
+      </div>
+
+      <div class="dropdown">
+        <label tabindex="0" class="btn btn-ghost sm:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+        </label>
+        <ul tabindex="0" class="menu menu-sm dropdown-content right-0 mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+          <li><a>Link</a></li>
+          <li>
+            <details>
+              <summary>
+                Parent
+              </summary>
+              <ul class="p-2 bg-base-100">
+                <li><a>Link 1</a></li>
+                <li><a>Link 2</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+
+      <div class="navbar-center flex">
+        <ul class="menu menu-horizontal px-1">
+          <li><a href="/about">About</a></li>
+          <li>
+            <details>
+              <summary>Theme</summary>
+              <ul class="p-2 bg-base-100 right-0">
+                <li><a href="/lego/sets?theme=Drake" class="block px-4 py-2 hover:bg-gray-100">Drake</a></li>
+                <li><a href="/lego/sets?theme=The Weeknd" class="block px-4 py-2 hover:bg-gray-100">The Weeknd</a></li>
+                <li><a href="/lego/sets?theme=Travis Scott" class="block px-4 py-2 hover:bg-gray-100">Travis Scott</a></li>
+              </ul>
+            </details>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="container mx-auto">
+      <div
+        class="hero min-h-screen""
+        style="
+          background-image: url(https://imgs.search.brave.com/zir1KP-KT79vBKwfc75g4VaRc-p0qYdLwu02_gbAnos/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jdXRl/d2FsbHBhcGVyLm9y/Zy8yMS9sZWdvLW5p/bmphZ28tYmFja2dy/b3VuZHMvRnJlZS1k/b3dubG9hZC1OaW5q/YWdvLVdhbGxwYXBl/cmpwZy0xMjgweDU3/Ny1mb3IteW91ci0u/anBn);
+        ">
+        <div class="hero-overlay bg-opacity-70"></div>
+        <div class="hero-content text-center text-neutral-content">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-bold">Hello there</h1>
+            <p class="mb-5">Welcome to my World, Hope you all can see my LEGOS.</p>
+            <a href="/lego/sets" class="btn btn-primary">Explore!</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-center items-center h-screen">
+        <div class="grid grid-cols-3 gap-8">
+          <div class="card w-96 bg-base-100 shadow-xl bg-cover bg-center">
+            <div class="card-inner-content">
+              <figure>
+                <img class="w-full" src="https://cdn.rebrickable.com/media/sets/0241187567-1.jpg" alt="Shoes" />
+              </figure>
+              <div class="card-body">
+                <h2 class="card-title">Ninjago</h2>
+                <p>A Ninja never admits defeat, a ninja always picks himself up when he's down - Kai</p>
+                <div class="card-actions justify-end">
+                 <a href="/lego/sets/0241187567-1" class="btn btn-primary">Check</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card w-96 bg-base-100 shadow-xl bg-cover bg-center">
+            <figure>
+              <img class="w-full" src="https://cdn.rebrickable.com/media/sets/021-1.jpg" alt="Shoes" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Toys</h2>
+              <p>Plastic construction toys that are manufactured by the Lego Group, a privately held company based in Billund, Denmark.</p>
+              <div class="card-actions justify-end">
+                <a href="/lego/sets/045-1" class="btn btn-primary">Check</a>
+              </div>
+            </div>
+          </div>
+          <div class="card w-96 bg-base-100 shadow-xl bg-cover bg-center">
+            <figure>
+              <img class="w-full" src="https://cdn.rebrickable.com/media/sets/054-1.jpg" alt="Shoes" />
+            </figure>
+            <div class="card-body">
+              <h2 class="card-title">Discount!</h2>
+              <p>Grab the hugely popular Lego Star Wars Luke Skywalker's X-Wing Fighter with a 20% discount when you get it from Amazon today.</p>
+              <div class="card-actions justify-end">
+                <a href="/lego/sets/054-1" class="btn btn-primary">Check</a>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Include Tailwind CSS and DaisyUI scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/daisyui@1.1.0/dist/full.js"></script>
+  </body>
+</html>
