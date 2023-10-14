@@ -25,12 +25,6 @@ app.use(express.static("public")); // CSS
 app.set("view engine", "ejs");
 app.set("views", "./views"); // Specify the views directory
 
-// Initialize the legoData before starting the server
-legoData.initialize().then(() => {
-  // Start the server on the port and output a confirmation to the console
-  app.listen(HTTP_PORT, () => console.log(`Server listening on: ${HTTP_PORT}`));
-});
-
 // Route for the home page
 app.get("/", (request, response) => {
   response.sendFile(path.join(__dirname, "/views/home.html"));
@@ -43,7 +37,7 @@ app.get("/lego/sets", (request, response) => {
   //If there is a theme parameter, filter sets by theme
   if (theme) {
     legoData.initialize().then(() => {
-      legoData.getSetsByTheme(theme).then((set) => {
+      legoData.getSetsByTheme(theme).then((sets) => {
         response.send(sets);
       });
     });
@@ -51,7 +45,7 @@ app.get("/lego/sets", (request, response) => {
     //If no theme parameter, retrun all unfiltered Lego data
     legoData.initialize().then(() => {
       legoData.getAllSets().then((sets) => {
-        response.send(sets);
+        response.sendFile(sets);
       });
     });
   }
@@ -83,6 +77,6 @@ app.use((request, response) => {
   response.sendFile(__dirname + "/views/404.html");
 });
 
-app.listen(5000, "0.0.0.0", () => {
-  console.log(`Server listening on: ${HTTP_PORT}`);
+app.listen(HTTP_PORT, () => {
+  console.log(`sever listening on ${HTTP_PORT}`);
 });
