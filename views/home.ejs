@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="/public/css/main.css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="website icon"
+      type="png"
+      href="https://imgs.search.brave.com/DDqTqZZn5YkwTfrkkosGhR0eCNHSM1uSU-MFDrwpZaQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy13b3JsZC5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTAvT1ZPLUVtYmxl/bS01MDB4MjgxLnBu/Zw" />
   </head>
   <style>
     .card {
@@ -34,42 +38,78 @@
     .card:active::before {
       transform: scaleX(1);
     }
+
+    .btn-wrapper {
+      position: relative;
+      display: inline-block;
+    }
+
+    .btn-wrapper::before {
+      content: "";
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      background-size: 400%;
+      z-index: -1;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 12s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      border-radius: 7px;
+    }
+
+    .btn-wrapper:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-wrapper::after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #1f242d;
+      color: #fff;
+      left: 0;
+      top: 0;
+      border-radius: 22px;
+    }
+
+    @keyframes glowing {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
   </style>
   <body>
-    <div class="navbar bg-base-200">
-      <div class="flex flex-auto">
-        <a class="btn btn-ghost normal-case text-xl  hover:bg-cyan-300" href="/">Lego Collection</a>
-      </div>
+    <%- include('partials/navbar', {page: '/about'}) %>
 
-      <div class="navbar-center flex">
-        <ul class="menu menu-horizontal px-1">
-          <li><a href="/about">About</a></li>
-          <li>
-            <details>
-              <summary>Theme</summary>
-              <ul class="p-2 bg-base-100 right-0">
-                <li><a href="/lego/sets?theme=Technic" class="block px-4 py-2 hover:bg-gray-100">Technic</a></li>
-                <li><a href="/lego/sets?theme=Classic Town" class="block px-4 py-2 hover:bg-gray-100">The Weeknd</a></li>
-                <li><a href="/lego/sets?theme=Supplemental" class="block px-4 py-2 hover:bg-gray-100">Travis Scott</a></li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="container mx-auto">
+    <div class="container mx-auto text-pink-500">
       <div
-        class="hero min-h-screen""
-        style="
-          background-image: url(https://imgs.search.brave.com/zir1KP-KT79vBKwfc75g4VaRc-p0qYdLwu02_gbAnos/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9jdXRl/d2FsbHBhcGVyLm9y/Zy8yMS9sZWdvLW5p/bmphZ28tYmFja2dy/b3VuZHMvRnJlZS1k/b3dubG9hZC1OaW5q/YWdvLVdhbGxwYXBl/cmpwZy0xMjgweDU3/Ny1mb3IteW91ci0u/anBn);
-        ">
+        class="hero min-h-screen"
+        style="background-image: url(https://imgs.search.brave.com/GDNeM5kxDzfzcsGnSKG1pYOODNx8sOUq2b5cuKnOmiI/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDUwMDQ0/MDkuanBn)">
         <div class="hero-overlay bg-opacity-70"></div>
         <div class="hero-content text-center text-neutral-content">
           <div class="max-w-md">
             <h1 class="mb-5 text-5xl font-bold">Hello there</h1>
             <p class="mb-5">Welcome to my World, Hope you all can see my LEGOS.</p>
-            <a href="/lego/sets" class="btn btn-primary">Explore!</a>
+            <div class="btn-wrapper">
+              <a href="/lego/sets" class="btn btn-primary">Explore!</a>
+            </div>
           </div>
         </div>
       </div>
@@ -85,7 +125,7 @@
                 <h2 class="card-title">Ninjago</h2>
                 <p>A Ninja never admits defeat, a ninja always picks himself up when he's down - Kai</p>
                 <div class="card-actions justify-end">
-                 <a href="/lego/sets/0241187567-1" class="btn btn-primary">Check</a>
+                  <a href="/lego/sets/0241187567-1" class="btn btn-primary">Check</a>
                 </div>
               </div>
             </div>
@@ -110,7 +150,7 @@
               <h2 class="card-title">Discount!</h2>
               <p>Grab the hugely popular Lego Star Wars Luke Skywalker's X-Wing Fighter with a 20% discount when you get it from Amazon today.</p>
               <div class="card-actions justify-end">
-                <a href="/lego/sets/054-1" class="btn btn-primary">Check</a>              
+                <a href="/lego/sets/054-1" class="btn btn-primary">Check</a>
               </div>
             </div>
           </div>

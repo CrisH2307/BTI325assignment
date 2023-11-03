@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sets</title>
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="website icon" type="png" href="https://imgs.search.brave.com/DDqTqZZn5YkwTfrkkosGhR0eCNHSM1uSU-MFDrwpZaQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy13b3JsZC5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTAvT1ZPLUVtYmxl/bS01MDB4MjgxLnBu/Zw" />
+
+  </head>
+  <body>
+    <%- include('partials/navbar', {page: '/lego/sets'}) %>
+ 
+    <div class="container mx-auto  text-pink-500">
+      <div class="hero" style="background-image: url(https://imgs.search.brave.com/AkkN6h-MD7v4BGYI5O_BuHqzfjnnJswLG5lX5g8L5ks/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDUwMDQ0/MzYuanBn); background-size: cover;">
+        <div class="hero-overlay bg-opacity-60"></div>
+        <div class="hero-content text-center text-neutral-content">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-bold">All Lego Sets</h1>
+            <p class="mb-5">From London to New Delhi, I brought you the miracle of lego collection </p>
+            <div class="btn-wrapper">
+              <a href="/lego/sets?theme=Technic" class="btn btn-primary">Technic</a>
+              <a href="/lego/sets?theme=Classic Town" class="btn btn-primary">Classic Town</a>
+              <a href="/lego/sets?theme=Supplemental" class="btn btn-primary">Supplemental</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="overflow-x-auto  text-pink-500 font-semibold">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Types</th>
+            <th>Number of Parts</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% sets.forEach(set=>{ %>
+          <tr>
+            <td>
+              <div class="flex items-center space-x-3">
+                <div class="avatar">
+                  <div class="mask mask-squircle w-44 h-44">
+                    <img src="<%= set.img_url %>"/>
+                  </div>
+                </div>
+                <div>
+                  <div class="font-bold"><%= set.name %></div>
+                  <div class="text-sm opacity-50"><%= set.year %></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <%= set.theme %>
+            </td>
+            <td><%= set.num_parts %></td>
+            <th>
+              <a href="/lego/sets/<%= set.set_num %>" class="btn btn-ghost btn-xs">details</a>
+            </th>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </body>
+
+  <style>
+    .table {
+        width: 100%; 
+        font-size: 20px;
+        border-collapse: collapse; 
+      }
+
+      .table th, .table td {
+        padding: 15px; 
+        text-align: left;
+        font-size: 20px;
+      }
+
+      .btn-wrapper {
+        position: relative;
+        display: inline-block;
+        justify-content: space-between;
+      }
+
+    .btn-wrapper::before {
+      content: "";
+      background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      background-size: 400%;
+      z-index: -1;
+      filter: blur(5px);
+      width: calc(100% + 4px);
+      height: calc(100% + 4px);
+      animation: glowing 12s linear infinite;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+      border-radius: 7px;
+    }
+
+    .btn-wrapper:hover::before {
+      opacity: 1;
+    }
+
+    .btn-primary {
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-wrapper::after {
+      z-index: -1;
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #1f242d;
+      color: #fff;
+      left: 0;
+      top: 0;
+      border-radius: 22px;
+    }
+
+    @keyframes glowing {
+      0% {
+        background-position: 0 0;
+      }
+      50% {
+        background-position: 400% 0;
+      }
+      100% {
+        background-position: 0 0;
+      }
+    }
+  </style>
+</html>

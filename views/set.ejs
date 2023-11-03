@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Set</title>
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="website icon"
+      type="png"
+      href="https://imgs.search.brave.com/DDqTqZZn5YkwTfrkkosGhR0eCNHSM1uSU-MFDrwpZaQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy13b3JsZC5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTAvT1ZPLUVtYmxl/bS01MDB4MjgxLnBu/Zw" />
+  </head>
+  <body>
+    <%- include('partials/navbar', {page: '/lego/sets/set:num'}) %>
+
+    <div class="container mx-auto text-pink-500 p-32">
+      <div class="hero bg-base-200 rounded-lg p-6">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold"><%= set.name %></h1>
+            <br />
+            <p>Below, you will find detailed information about the set: <%= set.name %></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="hero-content flex-col lg:flex-row">
+          <img src="<%= set.img_url %>" class="w-full rounded-lg" />
+          <div>
+            <p>
+              Lego Name: <%= set.name %>
+              <br />
+              Year: <%= set.year %>
+              <br />
+              Theme: <%= set.theme %>
+              <br />
+              Num_Parts: <%= set.num_parts %>
+              <br /><br />
+            </p>
+            <span id="quote"></span>
+            <br />
+          </div>
+          <a href="/lego/sets" onclick="history.back(); return false;" class="btn-primary btn-wrapper">Return</a>
+        </div>
+      </div>
+      <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/daisyui@1.1.0/dist/full.js"></script>
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          /* TODO: "fetch" the data at: https://quotable.io/random and update an element in the DOM with the
+       "content" and "author" */
+          fetch("https://quotable.io/random")
+            .then((res) => res.json())
+            .then((data) => {
+              const quote = document.getElementById("quote");
+              quote.innerHTML = `"${data.content}" <br> - ${data.author}`;
+            })
+            .catch((err) => {
+              console.log("Error: ", err);
+            });
+        });
+      </script>
+      <style>
+        p,
+        a {
+          font-weight: 600;
+        }
+
+        .btn-wrapper {
+          position: relative;
+          display: flex;
+          font-weight: 700;
+        }
+
+        .btn-wrapper::before {
+          content: "";
+          background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          background-size: 400%;
+          z-index: -1;
+          filter: blur(5px);
+          width: calc(100% + 4px);
+          height: calc(100% + 4px);
+          animation: glowing 12s linear infinite;
+          opacity: 0;
+          transition: opacity 0.3s ease-in-out;
+          border-radius: 7px;
+        }
+
+        .btn-wrapper:hover::before {
+          opacity: 1;
+        }
+
+        .btn-primary {
+          position: relative;
+          z-index: 1;
+          background-color: #02b62c; /* Set the background color for the button here */
+          color: #140f0f;
+          padding: 10px 20px; /* Adjust padding as needed */
+          border-radius: 47px; /* Apply border-radius to match the glowing effect */
+        }
+
+        .btn-wrapper::after {
+          z-index: -1;
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          background: #01b32a;
+          color: #140f0f;
+          left: 0;
+          top: 0;
+          border-radius: 22px;
+        }
+
+        @keyframes glowing {
+          0% {
+            background-position: 0 0;
+          }
+          50% {
+            background-position: 400% 0;
+          }
+          100% {
+            background-position: 0 0;
+          }
+        }
+      </style>
+    </div>
+  </body>
+</html>

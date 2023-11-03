@@ -1,5 +1,5 @@
 /*********************************************************************************
-* BTI325 – Assignment 3
+* BTI325 – Assignment 4
 * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
 * No part of this assignment has been copied manually or electronically from any other source
 * (including web sites) or distributed to other students.
@@ -8,6 +8,7 @@
         Name: Cris Huynh 
         Student ID: 105444228 
         Date: Oct 1st, 2023
+        URL: https://beautiful-blue-armadillo.cyclic.app
 *
 ********************************************************************************/
 const setData = require("../data/setData");
@@ -44,7 +45,7 @@ const getSetByNum = (setNum) => {
     const found = sets.find((setObj) => setObj.set_num === setNum);
 
     if (!found) {
-      reject("Unable to find requested");
+      reject(new Error("The requested Lego set was not found"));
     } else {
       resolve(found);
     }
@@ -56,7 +57,7 @@ const getSetsByTheme = (theme) => {
     const matchTheme = sets.filter((set) => set.theme.toLowerCase().includes(theme.toLowerCase()));
 
     if (matchTheme.length === 0) {
-      reject("Unable to find");
+      reject(new Error("No sets found for the specified theme."));
     } else {
       resolve(matchTheme);
     }
