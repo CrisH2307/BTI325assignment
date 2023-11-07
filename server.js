@@ -7,11 +7,6 @@
 * 
         Name: Cris Huynh 
         Student ID: 105444228 
-<<<<<<< HEAD
-        Date: Nov 3rd, 2023
-=======
-        Date: Oct 1st, 2023
->>>>>>> 6e4063c669b4a0fc07a9ad7344de86f8aad116af
         URL: https://beautiful-blue-armadillo.cyclic.app
 *
 ********************************************************************************/
