@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html data-theme="business"></html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lego Collection</title>
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link rel="stylesheet" href="/views/addSet.sass" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet" />
+    <link
+      rel="website icon"
+      type="png"
+      href="https://imgs.search.brave.com/DDqTqZZn5YkwTfrkkosGhR0eCNHSM1uSU-MFDrwpZaQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy13b3JsZC5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTAvT1ZPLUVtYmxl/bS01MDB4MjgxLnBu/Zw" />
+  </head>
+  <body>
+    <%- include('partials/navbar', {page: '/lego/addSet' }) %>
+    <div class="container mx-auto text-pink-500">
+      <div
+        class="hero"
+        style="
+          background-image: url(https://imgs.search.brave.com/AkkN6h-MD7v4BGYI5O_BuHqzfjnnJswLG5lX5g8L5ks/rs:fit:860:0:0/g:ce/aHR0cHM6Ly93YWxs/cGFwZXJjYXZlLmNv/bS93cC93cDUwMDQ0/MzYuanBn);
+          background-size: cover;
+        ">
+        <div class="hero-overlay bg-opacity-60"></div>
+        <div class="hero-content text-center text-neutral-content">
+          <div class="max-w-md">
+            <h1 class="mb-5 text-5xl font-bold">All Lego Sets</h1>
+            <p class="mb-5">From London to New Delhi, I brought you the miracle of lego collection</p>
+            <div class="btn-wrapper">
+              <button>
+                <a href="/lego/sets?theme=Technic" class="btn-primary" style="--clr: #0ff0fc"
+                  ><span>Technic</span><i></i
+                ></a>
+              </button>
+              <button>
+                <a href="/lego/sets?theme=Classic Town" class="btn-primary" style="--clr: #0ff0fc"
+                  ><span>Classic Town</span><i></i
+                ></a>
+              </button>
+              <button>
+                <a href="/lego/sets?theme=Supplemental" class="btn-primary" style="--clr: #0ff0fc"
+                  ><span>Supplemental</span><i></i
+                ></a>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <br />
+
+    <form action="/lego/addSet" method="POST" class="max-w-xl grid-flow-row mx-auto gap-5">
+      <!-- Name Selection -->
+      <label for="name"></label>
+      <input
+        type="text"
+        placeholder="Name"
+        id="name"
+        name="name"
+        class="input input-bordered input-info w-full max-w-xs"
+        id="img_url"
+        name="img_url"
+        required />
+
+      <!-- URL Selection -->
+      <label for="img_url"></label>
+      <input type="url" placeholder="URL" class="input input-bordered input-accent w-full max-w-xs" />
+
+      <!-- Num of Part Selection -->
+      <label for="num_parts"></label>
+      <input
+        type="number"
+        placeholder="Num_Parts"
+        min="0"
+        max="1000"
+        id="num_parts"
+        name="num_parts"
+        class="input input-bordered input-accent w-full max-w-xs"
+        required />
+
+      <!-- Year Part Selection -->
+      <label for="year"></label>
+      <input
+        type="number"
+        placeholder="Year"
+        id="year"
+        name="year"
+        min="0"
+        max="2023"
+        class="input input-bordered input-accent w-full max-w-xs"
+        required />
+
+      <!-- Theme Selection -->
+      <label for="theme_id"></label>
+      <select class="select select-accent w-full max-w-xs" id="theme_id" name="theme_id" required>
+        <% themes.forEach(theme=>{ %>
+        <option value="<%= theme.id %>"><%= theme.name %></option>
+        <% }) %>
+      </select>
+
+      <!-- Set-Num Selection -->
+      <label for="set_num"></label>
+      <input
+        type="text"
+        placeholder="Set-Num"
+        id="set_num"
+        name="set_num"
+        class="input input-bordered input-info w-full max-w-xs"
+        required />
+      <br />
+      <!-- Submit Button -->
+      <button type="submit" style="--clr: #39ff14"><span>Add</span><i></i></button>
+    </form>
+  </body>
+  <style>
+    button {
+      position: relative;
+      background: #444;
+      color: #fff;
+      text-decoration: none;
+      text-transform: uppercase;
+      border: none;
+      letter-spacing: 0.1rem;
+      font-size: 1rem;
+      padding: 1rem 2rem;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      letter-spacing: 0.2rem;
+      padding: 1.1rem 3.1rem;
+      background: var(--clr);
+      color: var(--clr);
+      box-shadow: 0 0 35px var(--clr);
+      animation: box 3s infinite;
+    }
+
+    button::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      background: #272822;
+    }
+
+    button span {
+      position: relative;
+      z-index: 1;
+    }
+    button i {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+
+    button i::before {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      left: 80%;
+      top: -2px;
+      border: 2px solid var(--clr);
+      background: #272822;
+      transition: 0.2s;
+    }
+
+    button:hover i::before {
+      width: 15px;
+      left: 20%;
+      animation: move 3s infinite;
+    }
+
+    button i::after {
+      content: "";
+      position: absolute;
+      width: 10px;
+      height: 2px;
+      left: 20%;
+      bottom: -2px;
+      border: 2px solid var(--clr);
+      background: #272822;
+      transition: 0.2s;
+    }
+
+    button:hover i::after {
+      width: 15px;
+      left: 80%;
+      animation: move 3s infinite;
+    }
+
+    @keyframes move {
+      0% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(5px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes box {
+      0% {
+        box-shadow: #27272c;
+      }
+      50% {
+        box-shadow: 0 0 25px var(--clr);
+      }
+      100% {
+        box-shadow: #27272c;
+      }
+    }
+  </style>
+</html>

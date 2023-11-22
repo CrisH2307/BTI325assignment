@@ -1,5 +1,5 @@
 /*********************************************************************************
-* BTI325 – Assignment 4
+* BTI325 – Assignment 5
 * I declare that this assignment is my own work in accordance with Seneca Academic Policy.
 * No part of this assignment has been copied manually or electronically from any other source
 * (including web sites) or distributed to other students.
@@ -7,72 +7,10 @@
 * 
         Name: Cris Huynh 
         Student ID: 105444228 
-<<<<<<< HEAD
-        Date: Nov 3rd, 2023
-=======
-        Date: Oct 1st, 2023
->>>>>>> 6e4063c669b4a0fc07a9ad7344de86f8aad116af
+        Date: Nov 11th, 2023
         URL: https://beautiful-blue-armadillo.cyclic.app
 *
 ********************************************************************************/
-const setData = require("../data/setData");
-const themeData = require("../data/themeData");
-
-let sets = [];
-
-const initialize = () => {
-  return new Promise((resolve, reject) => {
-    setData.forEach((setO) => {
-      const sameThing = themeData.find((themeO) => themeO.id === setO.theme_id);
-
-      if (sameThing) {
-        const newSetObj = {
-          ...setO,
-          theme: sameThing.name,
-        };
-
-        sets.push(newSetObj);
-      }
-    });
-    resolve();
-  });
-};
-
-const getAllSets = () => {
-  return new Promise((resolve, reject) => {
-    resolve(sets);
-  });
-};
-
-const getSetByNum = (setNum) => {
-  return new Promise((resolve, reject) => {
-    const found = sets.find((setObj) => setObj.set_num === setNum);
-
-    if (!found) {
-      reject("Unable to find requested");
-    } else {
-      resolve(found);
-    }
-  });
-};
-
-const getSetsByTheme = (theme) => {
-  return new Promise((resolve, reject) => {
-    const matchTheme = sets.filter((set) => set.theme.toLowerCase().includes(theme.toLowerCase()));
-
-    if (matchTheme.length === 0) {
-      reject("Unable to find");
-    } else {
-      resolve(matchTheme);
-    }
-  });
-};
-
-initialize();
-console.log(getAllSets());
-module.exports = { initialize, getAllSets, getSetByNum, getSetsByTheme };
-
-
 const legoData = require("./modules/legoSets");
 const path = require("path");
 
@@ -85,6 +23,13 @@ app.use(express.static(path.join(__dirname, "public")));
 // Set EJS as the view engine
 app.set("view engine", "ejs");
 app.set("views", "./views"); // Specify the views directory
+
+//const legoSets = require("./path/to/legoSets"); // Import the legoSets module
+
+// Body parser middleware
+app.use(express.urlencoded({ extended: true }));
+
+express.urlencoded({ extended: true });
 
 // Route for the home page
 app.get("/", (request, response) => {
@@ -107,7 +52,7 @@ app.get("/lego/sets/", (request, response) => {
         });
     });
   } else {
-    //If no theme parameter, retrun all unfiltered Lego data
+    //If no theme parameter, return all unfiltered Lego data
     legoData.initialize().then(() => {
       legoData.getAllSets().then((sets) => {
         response.render("sets", { sets: sets });
@@ -137,22 +82,67 @@ app.get("/lego/sets/:set_num", (request, response) => {
     });
 });
 
-// Custom 404 route
-app.use((request, response) => {
-  const path = request.originalUrl;
-  let errorMessage = "The requested Lego set was not found";
-
-  if (path.includes("/lego/sets?theme=")) {
-    errorMessage = "No sets found for the specified theme.";
-    response.status(404).render("404", { message: errorMessage });
-  } else if (path.includes("/lego/sets/")) {
-    errorMessage = "No set found for the specified set number.";
-    response.status(404).render("404", { message: errorMessage });
-  } else {
-    errorMessage = "No view matched for the specific route.";
-    response.status(404).render("404", { message: errorMessage });
+// GET route for displaying the addSet view
+app.get("/lego/addSet", async (req, res) => {
+  try {
+    const themes = await legoData.getAllThemes();
+    res.render("addSet", { themes });
+  } catch (err) {
+    res.status(500).render("500", { message: `Error: ${err.message}` });
   }
 });
+
+// POST route for processing the addSet form
+app.post("/lego/addSet", async (req, res) => {
+  try {
+    const themes = await legoData.getAllThemes();
+    await legoData.addSet(req.body);
+    res.redirect("/lego/sets");
+  } catch (err) {
+    res
+      .status(500)
+      .render("500", { message: `I'm sorry, but we have encountered the following error: ${err.errors[0].message}` });
+  }
+});
+
+// GET route for editing a specific set
+app.get("/lego/editSet/:set_num", async (req, res) => {
+  try {
+    const set = await legoData.getSetByNum(req.params.set_num);
+    const themes = await legoData.getAllThemes();
+
+    res.render("editSet", { themes, set });
+  } catch (err) {
+    res.status(404).render("404", { message: err.message });
+  }
+});
+
+// POST route for updating a set
+app.post("/lego/editSet", async (req, res) => {
+  try {
+    await legoData.editSet(req.body.set_num, req.body);
+    res.redirect("/lego/sets");
+  } catch (err) {
+    res.status(500).render("500", {
+      message: `I'm sorry, but we have encountered the following error: ${err.errors[0].message || err}`,
+    });
+  }
+});
+
+// GET route for deleting a set
+app.get("/lego/deleteSet/:set_num", async (req, res) => {
+  try {
+    await legoData.deleteSet(req.params.set_num);
+    res.redirect("/lego/sets");
+  } catch (err) {
+    res.status(500).render("500", {
+      message: `I'm sorry, but we have encountered the following error: ${err.errors[0].message || err}`,
+    });
+  }
+});
+
+// Custom 404 route
+app.use((req, res) => res.status(404).render("404", { message: "Page not found" }));
 
 app.listen(HTTP_PORT, () => {
   console.log(`sever listening on ${HTTP_PORT}`);
