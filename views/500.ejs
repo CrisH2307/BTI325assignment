@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html data-theme="business"></html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>500</title>
+    <link rel="stylesheet" href="/public/css/main.css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@3.8.3/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="website icon" type="png" href="https://imgs.search.brave.com/DDqTqZZn5YkwTfrkkosGhR0eCNHSM1uSU-MFDrwpZaQ/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9sb2dv/cy13b3JsZC5uZXQv/d3AtY29udGVudC91/cGxvYWRzLzIwMjIv/MTAvT1ZPLUVtYmxl/bS01MDB4MjgxLnBu/Zw" />
+  </head>
+  <body>
+    <%- include('partials/navbar', {page: '/about'}) %>
+
+    <div class="container mx-auto">
+      <div class="hero min-h-screen bg-base-200">
+        <div class="hero-content flex-col lg:flex-row max-w-max max-h-max">
+          <img src="https://i.pinimg.com/originals/02/dc/30/02dc3019fb8cc7d02db09ab41a60c4e4.jpg" class="max-w-max max-h-max rounded-lg shadow-2xl" />
+          <div>
+            <h1 class="text-5xl font-bold">500!!!!</h1>
+            <p class="py-6"><%= message %></p>
+          </div>
+        </div>
+      </div>
+  </body>
+</html>
